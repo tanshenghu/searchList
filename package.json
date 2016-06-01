@@ -1,0 +1,28 @@
+{
+  "family": "widget",
+  "name": "searchList",
+  "version": "1.0.0",
+  "description": "模糊搜索-下拉框，并且可以在无需请求后端接口的情况下可以对最近一次搜索结果进行过滤筛选操作",
+  "homepage": "http://git.oschina.net/tanshenghu/myweb/tree/widget/1.0.0/searchList",
+  "author": "谭生虎",
+  "maintainers": [
+    "谭生虎 <tanshenghu@163.com>"
+  ],
+  "repository": {
+    "type": "git",
+    "url": "http://git.oschina.net/tanshenghu/myweb/tree/widget/1.0.0/searchList.git"
+  },
+  "bugs": {
+    "url": "http://git.oschina.net/tanshenghu/myweb/tree/widget/1.0.0/searchList/issues"
+  },
+  "keywords": [],
+  "licenses": "tsh_worker",
+  "spm": {
+    "output": [
+      "searchList.js"
+    ],
+    "alias": {},
+    "devAlias": {},
+    "engines": {}
+  }
+}

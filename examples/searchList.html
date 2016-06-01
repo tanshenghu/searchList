@@ -1,0 +1,108 @@
+<!DOCTYPE html>
+<html lang="zh">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+    <meta name="Keywords" content="">
+    <meta name="Description" content="">
+    <meta name="Author" content="TanShenghu">
+    <title>下拉框 搜索</title>
+    <link rel="stylesheet" href="https://s.tbcdn.cn/g/platform/common/s/1.0/global/global.css">
+    <link rel="stylesheet" href="./style.css">
+    <script src="https://a.alipayobjects.com/seajs/seajs/2.2.0/sea.js"></script>
+    <script>
+    seajs.config({
+      paths: {
+        'jquery': 'https://a.alipayobjects.com/jquery/',
+        'gallery': 'https://a.alipayobjects.com/gallery',
+        'widget': 'http://www.tanshenghu.com/widget'
+      },    
+      alias: {
+        '$': 'jquery/jquery/1.7.2/jquery',
+        'handlebars': 'gallery/handlebars/1.0.2/handlebars',
+        'searchList': 'widget/searchList/1.0.0/searchList'
+      }
+    });
+    </script>
+</head>
+<body>
+    <pre>
+    如果是要测试请将下面的数据拷下来保存至跟html同级目录下取名data.json
+    {
+        "content":{
+            "data":[
+                {"id":"1","name":"张三","sex":"男","address":"武当山"},
+                {"id":"2","name":"张三丰","sex":"男","address":"武当山"},
+                {"id":"3","name":"张君宝","sex":"男","address":"武当山"},
+                {"id":"4","name":"张翠山","sex":"男","address":"武当山"},
+                {"id":"5","name":"张东西","sex":"男","address":"武当山"},
+                {"id":"6","name":"张无忌","sex":"男","address":"光明顶"}
+            ]
+        },
+        "hasError":false
+    }
+    </pre>
+    <hr>
+	<br><br>
+    <span id="test1" class="searchList"><input type="text" name="name" class="cin-keyword"></span>
+    &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;
+    <span id="test2" class="searchList"><input type="text" name="kw" class="cin-keyword"></span>
+    
+    <script type="text/template" id="tpl">
+    {{#each content.data}}
+    <li title="{{name}}"><a href="javascript:;" data-id="{{id}}">{{{filter name}}}</a></li>
+    {{/each}}
+    </script>
+    
+    <script type="text/template" id="tpl2">
+    {{#each content.data}}
+    <li title="{{gongfu}}"><a href="javascript:;" data-id="{{id}}">{{{filter gongfu}}}</a></li>
+    {{/each}}
+    </script>
+    <script>
+    seajs.use(['$','searchList'], function( $, SearchList ){
+        
+        SearchList.init({
+            eles: '#test1',
+            keydown: false,
+            param: {
+                "page": 'test',
+                "name": 'tsh'
+            },
+            tpl: '#tpl',
+            filter: true,
+            portUrl: './data.json'
+        })
+        .find('.dropDownBox ul').on('click', 'a', function(){
+            var $this   = $( this ),
+            searchList  = $this.closest('.searchList'),
+            oinput      = searchList.find('.cin-keyword'),
+            dropDownBox = searchList.find('.dropDownBox');
+            
+            oinput.val( $this.text() ).attr( 'data-id', $this.attr('data-id') );
+            dropDownBox.hide();
+        });
+        //
+        SearchList.init({
+            eles: '#test2',
+            keydown: true,
+            param: {},
+            tpl: '#tpl2',
+            filter: false,
+            portUrl: './data2.json'
+        })
+        .find('.dropDownBox ul').on('click', 'a', function(){
+            var $this   = $( this ),
+            searchList  = $this.closest('.searchList'),
+            oinput      = searchList.find('.cin-keyword'),
+            dropDownBox = searchList.find('.dropDownBox');
+            
+            oinput.val( $this.text() ).attr( 'data-id', $this.attr('data-id') );
+            dropDownBox.hide();
+        });
+        
+    });
+    </script>
+</body>
+</html>
